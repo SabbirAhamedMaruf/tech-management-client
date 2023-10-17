@@ -4,6 +4,7 @@ import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import AddProduct from '../Pages/AddProduct';
+import ProductUpdate from '../Pages/ProductUpdate';
 
 const routes = createBrowserRouter([
     {
