@@ -202,7 +202,7 @@ const AddProduct = () => {
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
                     name="description"
                     cols="30"
-                    rows="3"
+                    rows="5"
                     placeholder="Enter your product description"
                   ></textarea>
                 </div>
