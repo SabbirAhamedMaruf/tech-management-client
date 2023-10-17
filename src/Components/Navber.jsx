@@ -14,7 +14,7 @@ const Navber = () => {
 
       {/* Desktop left menus section */}
       <div className="hidden md:block md:pl-5 lg:pl-0">
-        <ul className="navberMenu menu menu-horizontal">
+        <ul className="navberMenuleft menu menu-horizontal">
           <NavLink to="/" className="px-1 lg:px-5 uppercase text-[15px] lg:text-[16px]">
             Home
           </NavLink>
@@ -64,7 +64,7 @@ const Navber = () => {
         <div className="hidden lg:block ">
           <div className="flex flex-col items-center">
             <img
-              className="w-8 lg:w-10 pb-2"
+              className="lg:w-8 pb-2"
               src="https://i.ibb.co/D44199J/Logo.png"
             />
             <h1 className="text-2xl">Tech Heaven</h1>
@@ -73,7 +73,7 @@ const Navber = () => {
       </div>
 
       {/* Desktop Right menus section */}
-      <div className="hidden md:block navberMenu">
+      <div className="hidden md:block navberMenuright">
         <NavLink
           to="/addproduct"
           className="px-1 lg:px-5 uppercase text-[15px] lg:text-[16px]"

@@ -4,6 +4,10 @@
 @tailwind utilities;
 
 
-.navberMenu a.active{
+.navberMenuleft a.active{
     color: limegreen;
+}
+
+.navberMenuright a.active{
+    color: #428efa;
 }

@@ -42,9 +42,9 @@ const AddProduct = () => {
   };
   return (
     <div>
-      <div className="bg-gradient-to-l from-green-400 to-blue-500">
+      <div>
         <Navber></Navber>
-        <div className="bg-gradient-to-l from-green-400 to-blue-500 lg:h-[821px] lg:rounded-b-2xl pb-20">
+        <div className="bg-gradient-to-r from-green-400 to-blue-500 lg:h-[829px]  pb-20">
           <h1 className="text-center font-bold text-4xl py-8 text-white">
             Welcome to Product Management
           </h1>
