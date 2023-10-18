@@ -6,7 +6,7 @@ import{BiLogoTwitter} from 'react-icons/bi'
 const Footer = () => {
   return (
     <div>
-      <footer className="p-2 bg-black text-white text-center shadow-lg rounded-t-2xl mt-8">
+      <footer className="p-2 bg-black text-white text-center shadow-lg rounded-t-3xl mt-8">
         <div className="w-[85%] py-10 m-auto">
         <div className="flex justify-between mt-8">
           <nav className="flex flex-col space-y-5">
@@ -33,7 +33,7 @@ const Footer = () => {
         <div className="mt-8">
         <div className="flex flex-col items-center">
           <img className="w-8 lg:w-16 pb-2" src="https://i.ibb.co/sybN30K/Footer-Logo.png" />
-          <h1 className="text-xl">{"Sabbir's Coffee Shop"}</h1>
+          <h1 className="text-xl">{"Tech Heaven"}</h1>
         </div>
         <div className='space-x-6 mt-4'>
               <button className='text-2xl p-2 bg-gradient-to-r from-green-400 to-blue-500 rounded-full'><FaFacebookF/></button>

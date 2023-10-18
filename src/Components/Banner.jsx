@@ -25,5 +25,3 @@ const Banner = () => {
 };
 
 export default Banner;
-
-// TODO change the bg image

@@ -3,7 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hiding scroll bar */
+body{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
 
+/* active link color */
 .navberMenuleft a.active{
     color: limegreen;
 }
