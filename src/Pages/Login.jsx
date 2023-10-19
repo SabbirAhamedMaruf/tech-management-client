@@ -55,8 +55,8 @@ const Login = () => {
 
   return (
     <div>
+      <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[95vh] lg:h-[100vh]">
       <Navber></Navber>
-      <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[95vh] lg:h-[91vh]">
         <h1 className="text-center font-bold text-4xl py-8 text-white">
           Welcome to Login
         </h1>

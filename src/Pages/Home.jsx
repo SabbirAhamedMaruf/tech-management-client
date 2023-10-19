@@ -3,20 +3,21 @@ import Footer from "../Components/Footer";
 import Navber from "../Components/Navber";
 
 const Home = () => {
-
   return (
     <div>
       <Navber></Navber>
       <Banner></Banner>
       <div>
-        <h1 className="text-center font-bold mt-14 text-4xl ">Our Products</h1>
-
         {/* Upcoming Sales */}
+        <div>
 
-        {/* Featured product */}
-
-
-
+        </div>
+        <div>
+          {/* Featured product */}
+          <h1 className="text-center font-bold mt-14 text-4xl ">
+            Featured Products
+          </h1>
+        </div>
 
         {/* <div className="card w-96 bg-gray-100 shadow-xl">
           <figure className="px-10 pt-10">
@@ -34,8 +35,6 @@ const Home = () => {
             </div>
           </div>
         </div> */}
-
-
 
         <Footer></Footer>
       </div>

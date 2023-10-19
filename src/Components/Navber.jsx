@@ -7,7 +7,7 @@ import { AuthContext } from "../Context/AuthProvider";
 const Navber = () => {
   const { user, signOutUser } = useContext(AuthContext);
   // Sign Out User
-  const handleSignOutUser=() => {
+  const handleSignOutUser = () => {
     signOutUser();
   };
 
@@ -30,14 +30,21 @@ const Navber = () => {
           >
             Home
           </NavLink>
+
           {user && (
-            <NavLink
-              to="/addproduct"
-              className="px-1 lg:px-5 uppercase text-[15px] lg:text-[16px]"
-            >
-              Add Product
-            </NavLink>
+            <div className="dropdown uppercase text-[15px] lg:text-[16px] flex justify-end">
+              <label tabIndex={0}>dashboard</label>
+              <ul
+                tabIndex={0}
+                className="navberMenu menu dropdown-content top-10 left-[2px] mt-3 z-[1] p-2 bg-blue-50 rounded-b-lg  w-52 uppercase text-[15px] space-y-5 shadow-md"
+              >
+                <NavLink to="/addproduct">Add Product</NavLink>
+                <NavLink to="/addbrand">Add Brand</NavLink>
+                <NavLink to="/addtype">Add Product Type</NavLink>
+              </ul>
+            </div>
           )}
+
           {user && (
             <NavLink
               to="/mycart"
@@ -84,16 +91,25 @@ const Navber = () => {
       {/* Desktop Right menus section */}
       <div className="hidden lg:block navberMenuright text-right">
         <div className="flex items-center justify-end gap-4 uppercase">
-          {user && <p className="hover:text-blue-500">{user.displayName? user.displayName : "user"}</p>}
+          {user && (
+            <p className="hover:text-blue-500">
+              {user.displayName ? user.displayName : "user"}
+            </p>
+          )}
           {user && (
             <button
-            className="px-1 lg:px-4 uppercase text-[15px] lg:text-[16px] hover:text-blue-500"
-            onClick={handleSignOutUser}
+              className="px-1 lg:px-4 uppercase text-[15px] lg:text-[16px] hover:text-blue-500"
+              onClick={handleSignOutUser}
             >
               LOGOUT
             </button>
           )}
-          {user && <img className="w-10 inline rounded-full mr-4" src={user.photoURL} />}
+          {user && (
+            <img
+              className="w-10 inline rounded-full mr-4"
+              src={user.photoURL}
+            />
+          )}
         </div>
         {user ? (
           <p></p>
@@ -111,4 +127,3 @@ const Navber = () => {
 };
 
 export default Navber;
-

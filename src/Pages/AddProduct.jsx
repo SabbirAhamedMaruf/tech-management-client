@@ -1,7 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navber from "../Components/Navber";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../Index.css";
 
 const AddProduct = () => {
+  // Toast Message
+  const successInfo = () => {
+    toast.success("Product added successfully!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+  const errorInfo = () => {
+    toast.error("Connection interrupted. Please check your Connection!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  // Fetching brands from server
+  const [brandsData, setBrandsData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/addproduct")
+      .then((res) => res.json())
+      .then((data) => setBrandsData(data));
+  }, []);
+
+  // Fetching Product type from server
+  const [productTypeData, setProductTypeData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/addtype")
+      .then((res) => res.json())
+      .then((data) => setProductTypeData(data));
+  }, []);
+
   //  State for radio button => rating field
   const [currentRating, setCurrentRating] = useState(null);
   const handleRating = (e) => {
@@ -20,6 +65,12 @@ const AddProduct = () => {
     setCurrentPrice(parseInt(e.target.value));
   };
 
+  //   State for warrenty field
+  const [warrentyPeriod, setWarrentyPeriod] = useState(0);
+  const handleSetWarrenty = (e) => {
+    setWarrentyPeriod(parseInt(e.target.value));
+  };
+
   const handleAddProduct = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -29,22 +80,43 @@ const AddProduct = () => {
     const featured = isFeatured;
     const price = currentPrice;
     const rating = currentRating;
+    const warrenty = warrentyPeriod;
     const description = form.description.value;
 
-    //> all value is ok
-    console.log("photo =", photo);
-    console.log("name =", name);
-    console.log("type =", type);
-    console.log("featured =", featured);
-    console.log("price =", price);
-    console.log("rating =", rating);
-    console.log("description =", description);
+    const productData = {
+      photo,
+      name,
+      type,
+      featured,
+      price,
+      rating,
+      warrenty,
+      description,
+    };
+
+    fetch("http://localhost:5000/addproduct", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          successInfo();
+          form.reset();
+        } else {
+          errorInfo();
+        }
+      });
   };
+
   return (
     <div>
       <div>
-        <Navber></Navber>
-        <div className="bg-gradient-to-r from-green-400 to-blue-500 lg:h-[829px]  pb-20">
+        <div className="bg-gradient-to-r from-green-400 to-blue-500 pb-20">
+          <Navber></Navber>
           <h1 className="text-center font-bold text-4xl py-8 text-white">
             Welcome to Product Management
           </h1>
@@ -59,7 +131,7 @@ const AddProduct = () => {
                 <div className="grid lg:grid-cols-2 space-y-5">
                   {/* Photo */}
                   <label className="font-bold text-xl" htmlFor="email">
-                    Photo
+                    Product Image
                   </label>
                   <input
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
@@ -71,7 +143,7 @@ const AddProduct = () => {
 
                   {/* Name */}
                   <label className="font-bold text-xl" htmlFor="password">
-                    Name
+                    Product Name
                   </label>
                   <input
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
@@ -83,18 +155,34 @@ const AddProduct = () => {
 
                   {/* Type */}
                   <label className="font-bold text-xl" htmlFor="password">
-                    Type
+                    Product Type
                   </label>
                   <select
                     name="type"
                     required
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
                   >
-                    <option>Select Your Product Category</option>
-                    <option value="phone">Phone</option>
-                    <option value="earbuds">Earbuds</option>
-                    <option value="headphone">Headphone</option>
-                    <option value="smartwatch">Smart Watch</option>
+                    {productTypeData.map((i) => (
+                      <option key={i._id} value={i.name}>
+                        {i.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* Brand */}
+                  <label className="font-bold text-xl" htmlFor="password">
+                    Brand
+                  </label>
+                  <select
+                    name="type"
+                    required
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                  >
+                    {brandsData.map((i) => (
+                      <option key={i._id} value={i.name}>
+                        {i.name}
+                      </option>
+                    ))}
                   </select>
 
                   {/* Is Featured */}
@@ -194,6 +282,20 @@ const AddProduct = () => {
                     <br />
                   </div>{" "}
                   <br />
+                  {/* Warrenty */}
+                  <label className="font-bold text-xl" htmlFor="password">
+                    Warrenty
+                  </label>
+                  <input
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    type="number"
+                    name="warrenty"
+                    required
+                    placeholder="Enter your product price"
+                    min={0}
+                    value={warrentyPeriod}
+                    onChange={handleSetWarrenty}
+                  />
                   {/* Short Descriptions */}
                   <label className="font-bold text-xl" htmlFor="password">
                     Description
@@ -217,6 +319,7 @@ const AddProduct = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
