@@ -19,7 +19,7 @@ const Products = () => {
       <div className="w-[90%] m-auto">
         {/* Advertisement Carousel */}
         <div>
-
+        
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">

@@ -18,7 +18,7 @@ const SingleProduct = ({data}) => {
         <h3 className="font-semibold">{data.rating}</h3>
         <div className="flex gap-4 text-white uppercase">
             <Link to={`./${data._id}`} className="px-8 py-2 bg-gray-500 rounded-3xl duration-300 hover:bg-green-400">Details</Link>
-            <Link className="px-8 py-2 bg-gray-500 rounded-3xl duration-300 hover:bg-blue-500">Update</Link>
+            <Link to={`/update/${data._id}`} className="px-8 py-2 bg-gray-500 rounded-3xl duration-300 hover:bg-blue-500">Update</Link>
         </div>
       </div>
     </div>

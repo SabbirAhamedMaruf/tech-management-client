@@ -11,6 +11,7 @@ import AddType from "../Pages/AddType";
 import Products from "../Pages/Products";
 import ProductDetails from "../Pages/ProductDetails";
 import MyCart from "../Pages/MyCart";
+import ProductUpdate from "../Pages/ProductUpdate";
 
 const routes = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const routes = createBrowserRouter([
             <MyCart></MyCart>
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "/update/:productDetailId",
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:5000/update/${params.productDetailId}`
+          ),
+        element: <ProductUpdate></ProductUpdate>,
       },
     ],
   },

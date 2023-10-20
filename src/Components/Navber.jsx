@@ -47,7 +47,7 @@ const Navber = () => {
 
           {user && (
             <NavLink
-              to="/mycart"
+              to={`/mycart`}
               className="px-1 lg:px-5 uppercase text-[15px] lg:text-[16px]"
             >
               My Cart

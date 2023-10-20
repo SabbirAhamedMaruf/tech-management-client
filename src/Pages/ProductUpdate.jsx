@@ -1,50 +1,115 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navber from "../Components/Navber";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../Index.css";
+import { useParams } from "react-router-dom";
 
 const ProductUpdate = () => {
-  //  State for radio button => rating field
-  const [currentRating, setCurrentRating] = useState(null);
-  const handleRating = (e) => {
-    setCurrentRating(e.target.value);
+  // Toast Message
+  const successInfo = () => {
+    toast.success("Product updated successfully!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+  const errorInfo = () => {
+    toast.error("Connection interrupted. Please check your connection!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
-  //   State for radio button => isFeatured field
-  const [isFeatured, setIsFeatued] = useState(null);
-  const handleIsFeatured = (e) => {
-    setIsFeatued(e.target.value);
-  };
+  // Fetching brands from server
+  const [brandsData, setBrandsData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/addproduct")
+      .then((res) => res.json())
+      .then((data) => setBrandsData(data));
+  }, []);
 
-  //   State for price field
-  const [currentPrice, setCurrentPrice] = useState(0);
-  const handleSetPrice = (e) => {
-    setCurrentPrice(parseInt(e.target.value));
-  };
+  // Fetching Product type from server
+  const [productTypeData, setProductTypeData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/addtype")
+      .then((res) => res.json())
+      .then((data) => setProductTypeData(data));
+  }, []);
 
-  const handleAddProduct = (e) => {
+  const { productDetailId } = useParams();
+  const [currentProduct, setCurrentProduct] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/update/${productDetailId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setCurrentProduct(data);
+      });
+  }, [productDetailId]);
+
+  console.log("Inside State", currentProduct);
+
+  const handleUpdateProduct = (e) => {
     e.preventDefault();
     const form = e.target;
     const photo = form.photo.value;
     const name = form.name.value;
     const type = form.type.value;
-    const featured = isFeatured;
-    const price = currentPrice;
-    const rating = currentRating;
+    const brand = form.brand.value;
+    const featured = form.featured.value;
+    const price = form.price.value;
+    const rating = form.rating.value;
+    const warrenty = form.warrenty.value;
     const description = form.description.value;
 
-    //> all value is ok
-    console.log("photo =", photo);
-    console.log("name =", name);
-    console.log("type =", type);
-    console.log("featured =", featured);
-    console.log("price =", price);
-    console.log("rating =", rating);
-    console.log("description =", description);
+    const productData = {
+      photo,
+      name,
+      type,
+      brand,
+      featured,
+      price,
+      rating,
+      warrenty,
+      description,
+    };
+
+    fetch(`http://localhost:5000/addproduct/${productDetailId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          successInfo();
+          form.reset();
+        } else {
+          errorInfo();
+        }
+      });
   };
+
   return (
     <div>
-      <div className="bg-gradient-to-l from-green-400 to-blue-500">
-        <Navber></Navber>
-        <div className="bg-gradient-to-l from-green-400 to-blue-500 lg:h-[821px] lg:rounded-b-2xl pb-20">
+      <div>
+        <div className="bg-gradient-to-r from-green-400 to-blue-500 pb-20">
+          <Navber></Navber>
           <h1 className="text-center font-bold text-4xl py-8 text-white">
             Welcome to Product Management
           </h1>
@@ -52,14 +117,14 @@ const ProductUpdate = () => {
           <div className="w-[90%] p-4 lg:p-14 m-auto shadow-2xl rounded-lg bg-blue-50">
             <div className="m-auto w-[80%] text-gray-600 pb-8">
               <form
-                onSubmit={handleAddProduct}
+                onSubmit={handleUpdateProduct}
                 className="grid lg:grid-cols-2 gap-8 pt-12"
               >
                 {/* Left side */}
                 <div className="grid lg:grid-cols-2 space-y-5">
                   {/* Photo */}
                   <label className="font-bold text-xl" htmlFor="email">
-                    Photo
+                    Product Image
                   </label>
                   <input
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
@@ -67,11 +132,12 @@ const ProductUpdate = () => {
                     name="photo"
                     required
                     placeholder="Enter your photo url"
+                    defaultValue={currentProduct[0]?.photo}
                   />
 
                   {/* Name */}
                   <label className="font-bold text-xl" htmlFor="password">
-                    Name
+                    Product Name
                   </label>
                   <input
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
@@ -79,51 +145,53 @@ const ProductUpdate = () => {
                     name="name"
                     required
                     placeholder="Enter your product name"
+                    defaultValue={currentProduct[0]?.name}
                   />
 
                   {/* Type */}
                   <label className="font-bold text-xl" htmlFor="password">
-                    Type
+                    Product Type
                   </label>
                   <select
                     name="type"
                     required
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
                   >
-                    <option>Select Your Product Category</option>
-                    <option value="phone">Phone</option>
-                    <option value="earbuds">Earbuds</option>
-                    <option value="headphone">Headphone</option>
-                    <option value="smartwatch">Smart Watch</option>
+                    {productTypeData.map((i) => (
+                      <option key={i._id} value={i.name}>
+                        {i.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* Brand */}
+                  <label className="font-bold text-xl" htmlFor="password">
+                    Brand
+                  </label>
+                  <select
+                    name="brand"
+                    required
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                  >
+                    {brandsData.map((i) => (
+                      <option key={i._id} value={i.name}>
+                        {i.name}
+                      </option>
+                    ))}
                   </select>
 
                   {/* Is Featured */}
-                  <div>
-                    <label className="font-bold text-xl" htmlFor="password">
-                      Is Featured?
-                    </label>
-                    <br />
-                    <br />
-                    <div className="space-x-5">
-                      <input
-                        type="radio"
-                        name="featured"
-                        value={true}
-                        checked={isFeatured === "true"}
-                        onChange={handleIsFeatured}
-                      />
-                      True
-                      <input
-                        className="ml-6"
-                        type="radio"
-                        name="featured"
-                        value={false}
-                        checked={isFeatured === "false"}
-                        onChange={handleIsFeatured}
-                      />
-                      False
-                    </div>
-                  </div>
+                  <label className="font-bold text-xl" htmlFor="password">
+                    Is Featured?
+                  </label>
+                  <select
+                    name="featured"
+                    required
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                  >
+                    <option value="false">False</option>
+                    <option value="true">True</option>
+                  </select>
                 </div>
 
                 {/* Right side */}
@@ -135,65 +203,42 @@ const ProductUpdate = () => {
                   <input
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
                     type="number"
-                    name="Price"
+                    name="price"
                     required
                     placeholder="Enter your product price"
                     min={0}
-                    value={currentPrice}
-                    onChange={handleSetPrice}
+                    defaultValue={currentProduct[0]?.price}
                   />
+
                   {/* Rating */}
-                  <div>
-                    <label className="font-bold text-xl" htmlFor="password">
-                      Rating
-                    </label>{" "}
-                    <br />
-                    <br />
-                    <div className="space-x-5">
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={1}
-                        checked={currentRating === "1"}
-                        onChange={handleRating}
-                      />{" "}
-                      1
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={2}
-                        checked={currentRating === "2"}
-                        onChange={handleRating}
-                      />{" "}
-                      2
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={3}
-                        checked={currentRating === "3"}
-                        onChange={handleRating}
-                      />{" "}
-                      3
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={4}
-                        checked={currentRating === "4"}
-                        onChange={handleRating}
-                      />{" "}
-                      4
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={5}
-                        checked={currentRating === "5"}
-                        onChange={handleRating}
-                      />{" "}
-                      5
-                    </div>
-                    <br />
-                  </div>{" "}
-                  <br />
+                  <label className="font-bold text-xl" htmlFor="password">
+                    Rating
+                  </label>
+                  <select
+                    name="rating"
+                    required
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+
+                  {/* Warrenty */}
+                  <label className="font-bold text-xl" htmlFor="password">
+                    Warrenty
+                  </label>
+                  <input
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    type="number"
+                    name="warrenty"
+                    required
+                    placeholder="Enter your product warrenty in years"
+                    min={0}
+                    defaultValue={currentProduct[0]?.warrenty}
+                  />
                   {/* Short Descriptions */}
                   <label className="font-bold text-xl" htmlFor="password">
                     Description
@@ -204,24 +249,23 @@ const ProductUpdate = () => {
                     cols="30"
                     rows="5"
                     placeholder="Enter your product description"
+                    defaultValue={currentProduct[0]?.description}
                   ></textarea>
                 </div>
 
                 <input
                   className="px-4 py-2 text-[18px] text-white rounded-3xl bg-gray-500"
                   type="submit"
-                  value="Update Product Information"
+                  value="Update Product"
                 />
               </form>
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
 export default ProductUpdate;
-
-
-// TODO check background color by zoomig in and out

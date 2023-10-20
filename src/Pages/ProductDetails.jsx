@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Navber from "../Components/Navber";
 import { Link, useParams } from "react-router-dom";
-import { FaStar } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

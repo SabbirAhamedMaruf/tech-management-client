@@ -1,15 +1,12 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-
-const MyCartSingleProduct = ({handleDeleteProduct,dataId,data }) => {
-   
+const MyCartSingleProduct = ({ handleDeleteData,dataId,data }) => {
+console.log(dataId);
   return (
     <div className="card w-96 bg-blue-50 shadow-2xl">
       <figure className="px-10 pt-10">
-        <img
-          src={data.photo}
-          className="bg-white rounded-xl"
-        />
+        <img src={data.photo} className="bg-white rounded-xl" />
       </figure>
       <div className="card-body items-center text-center">
         <h2 className="card-title">{data.name}</h2>
@@ -18,7 +15,9 @@ const MyCartSingleProduct = ({handleDeleteProduct,dataId,data }) => {
         <p>{data.brand}</p>
         <p>{data.rating}</p>
         <div className="card-actions">
-          <button onClick={()=>handleDeleteProduct(dataId)} className="btn btn-error text-white font-bold">Delete Product</button>
+          <Link onClick={()=>handleDeleteData(dataId)} className="btn btn-error text-white font-bold">
+            Delete Product
+          </Link>
         </div>
       </div>
     </div>
@@ -28,9 +27,7 @@ const MyCartSingleProduct = ({handleDeleteProduct,dataId,data }) => {
 MyCartSingleProduct.propTypes = {
   data: PropTypes.object,
   dataId: PropTypes.string,
-  handleDeleteProduct : PropTypes.func
+  handleDeleteData: PropTypes.func,
 };
 
 export default MyCartSingleProduct;
-
-
