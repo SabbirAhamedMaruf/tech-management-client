@@ -8,6 +8,9 @@ import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
 import AddBrand from "../Pages/AddBrand";
 import AddType from "../Pages/AddType";
+import Products from "../Pages/Products";
+import ProductDetails from "../Pages/ProductDetails";
+import MyCart from "../Pages/MyCart";
 
 const routes = createBrowserRouter([
   {
@@ -21,11 +24,19 @@ const routes = createBrowserRouter([
       },
       {
         path: "/addbrand",
-        element:<PrivateRoutes><AddBrand></AddBrand></PrivateRoutes>
+        element: (
+          <PrivateRoutes>
+            <AddBrand></AddBrand>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/addtype",
-        element:<PrivateRoutes><AddType></AddType></PrivateRoutes>
+        element: (
+          <PrivateRoutes>
+            <AddType></AddType>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/Login",
@@ -40,6 +51,26 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <AddProduct></AddProduct>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/:brandname",
+        element: <Products></Products>,
+      },
+      {
+        path: "/:brandname/:productDetailId",
+        element: (
+          <PrivateRoutes>
+            <ProductDetails></ProductDetails>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/mycart",
+        element: (
+          <PrivateRoutes>
+            <MyCart></MyCart>
           </PrivateRoutes>
         ),
       },

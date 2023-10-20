@@ -1,40 +1,63 @@
+import { useEffect, useState } from "react";
 import Banner from "../Components/Banner";
 import Footer from "../Components/Footer";
 import Navber from "../Components/Navber";
+import SingleBrand from "../Components/SingleBrand";
+import SingleFeaturedProduct from "../Components/SingleFeaturedProduct";
+import { Link } from "react-router-dom";
+import Marquee from "react-fast-marquee";
 
 const Home = () => {
+  const [homeScrrenBrands, setHomeScreenBrands] = useState([]);
+  const [featuedProduct, setFeaturedProduct] = useState([]);
+
+  // Fetching brands from server
+  useEffect(() => {
+    fetch("http://localhost:5000/brands")
+      .then((res) => res.json())
+      .then((data) => setHomeScreenBrands(data));
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/featured")
+      .then((res) => res.json())
+      .then((data) => setFeaturedProduct(data));
+  }, []);
+
   return (
     <div>
       <Navber></Navber>
       <Banner></Banner>
       <div>
         {/* Upcoming Sales */}
-        <div>
-
+        <div className="text-center font-bold mt-14 text-4xl m-auto w-[90%]">
+          <h1>Propular Brands</h1>
+          {/* Generating brands */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6  gap-16 mt-8">
+            {homeScrrenBrands?.map((i) => (
+              <Link to={`/${i.name}`} key={i._id}>
+                <SingleBrand data={i}></SingleBrand>
+              </Link>
+            ))}
+          </div>
         </div>
-        <div>
+
+        <div className="m-auto w-[90%]">
           {/* Featured product */}
           <h1 className="text-center font-bold mt-14 text-4xl ">
             Featured Products
           </h1>
-        </div>
-
-        {/* <div className="card w-96 bg-gray-100 shadow-xl">
-          <figure className="px-10 pt-10">
-            <img
-              src="https://i.ibb.co/Nj9LxBg/tea1.jpg"
-              alt=""
-              className="rounded-xl"
-            />
-          </figure>
-          <div className="card-body items-center text-center">
-            <h2 className="font-bold text-xl shad">Breakfast Blend</h2>
-            <p className="font-semibold">$35</p>
-            <div className="card-actions">
-              <button className="px-4 py-2 text-white rounded-3xl bg-gray-500">Buy Now</button>
-            </div>
+          {/* Generating featured Product */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mt-8">
+            {featuedProduct?.map((i) => (
+              <SingleFeaturedProduct
+                key={i._id}
+                data={i}
+              ></SingleFeaturedProduct>
+            ))}
           </div>
-        </div> */}
+          {/* TODO add link clicked linked here */}
+        </div>
 
         <Footer></Footer>
       </div>

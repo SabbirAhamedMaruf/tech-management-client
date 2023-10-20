@@ -37,7 +37,6 @@ const AddBrand = () => {
     const logo = form.brandlogo.value;
     const currentBrand = { name, logo };
 
-    
     fetch("http://localhost:5000/addbrand", {
       method: "POST",
       headers: {
@@ -58,13 +57,14 @@ const AddBrand = () => {
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[95vh] lg:h-[100vh]">
+      <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[100vh]">
         <Navber></Navber>
         <h1 className="text-center font-bold text-4xl py-8 text-white">
           Add Your Brand
         </h1>
         <div className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg bg-blue-50">
           <div className="m-auto w-[80%] text-gray-600 mb-20">
+            
             <form
               onSubmit={handleAddBrand}
               className="grid grid-cols-1 space-y-8"
@@ -104,3 +104,6 @@ const AddBrand = () => {
 };
 
 export default AddBrand;
+
+
+//TODO add height using padding and fix responsive

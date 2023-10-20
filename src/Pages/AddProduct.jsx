@@ -47,46 +47,24 @@ const AddProduct = () => {
       .then((data) => setProductTypeData(data));
   }, []);
 
-  //  State for radio button => rating field
-  const [currentRating, setCurrentRating] = useState(null);
-  const handleRating = (e) => {
-    setCurrentRating(e.target.value);
-  };
-
-  //   State for radio button => isFeatured field
-  const [isFeatured, setIsFeatued] = useState(null);
-  const handleIsFeatured = (e) => {
-    setIsFeatued(e.target.value);
-  };
-
-  //   State for price field
-  const [currentPrice, setCurrentPrice] = useState(0);
-  const handleSetPrice = (e) => {
-    setCurrentPrice(parseInt(e.target.value));
-  };
-
-  //   State for warrenty field
-  const [warrentyPeriod, setWarrentyPeriod] = useState(0);
-  const handleSetWarrenty = (e) => {
-    setWarrentyPeriod(parseInt(e.target.value));
-  };
-
   const handleAddProduct = (e) => {
     e.preventDefault();
     const form = e.target;
     const photo = form.photo.value;
     const name = form.name.value;
     const type = form.type.value;
-    const featured = isFeatured;
-    const price = currentPrice;
-    const rating = currentRating;
-    const warrenty = warrentyPeriod;
+    const brand = form.brand.value;
+    const featured = form.featured.value;
+    const price = form.price.value;
+    const rating = form.rating.value;
+    const warrenty = form.warrenty.value;
     const description = form.description.value;
-
+    
     const productData = {
       photo,
       name,
       type,
+      brand,
       featured,
       price,
       rating,
@@ -174,7 +152,7 @@ const AddProduct = () => {
                     Brand
                   </label>
                   <select
-                    name="type"
+                    name="brand"
                     required
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
                   >
@@ -186,32 +164,19 @@ const AddProduct = () => {
                   </select>
 
                   {/* Is Featured */}
-                  <div>
-                    <label className="font-bold text-xl" htmlFor="password">
-                      Is Featured?
-                    </label>
-                    <br />
-                    <br />
-                    <div className="space-x-5">
-                      <input
-                        type="radio"
-                        name="featured"
-                        value={true}
-                        checked={isFeatured === "true"}
-                        onChange={handleIsFeatured}
-                      />
-                      True
-                      <input
-                        className="ml-6"
-                        type="radio"
-                        name="featured"
-                        value={false}
-                        checked={isFeatured === "false"}
-                        onChange={handleIsFeatured}
-                      />
-                      False
-                    </div>
-                  </div>
+                  <label className="font-bold text-xl" htmlFor="password">
+                    Is Featured?
+                  </label>
+                  <select
+                    name="featured"
+                    required
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                  >
+                    <option value="false">False</option>
+                    <option value="true">True</option>
+                  </select>
+
+
                 </div>
 
                 {/* Right side */}
@@ -223,65 +188,42 @@ const AddProduct = () => {
                   <input
                     className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
                     type="number"
-                    name="Price"
+                    name="price"
                     required
                     placeholder="Enter your product price"
                     min={0}
-                    value={currentPrice}
-                    onChange={handleSetPrice}
+
                   />
+
+
+
+
+
+
+
                   {/* Rating */}
-                  <div>
-                    <label className="font-bold text-xl" htmlFor="password">
-                      Rating
-                    </label>{" "}
-                    <br />
-                    <br />
-                    <div className="space-x-5">
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={1}
-                        checked={currentRating === "1"}
-                        onChange={handleRating}
-                      />{" "}
-                      1
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={2}
-                        checked={currentRating === "2"}
-                        onChange={handleRating}
-                      />{" "}
-                      2
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={3}
-                        checked={currentRating === "3"}
-                        onChange={handleRating}
-                      />{" "}
-                      3
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={4}
-                        checked={currentRating === "4"}
-                        onChange={handleRating}
-                      />{" "}
-                      4
-                      <input
-                        type="radio"
-                        name="rating"
-                        value={5}
-                        checked={currentRating === "5"}
-                        onChange={handleRating}
-                      />{" "}
-                      5
-                    </div>
-                    <br />
-                  </div>{" "}
-                  <br />
+                  <label className="font-bold text-xl" htmlFor="password">
+                    Rating
+                  </label>
+                  <select
+                    name="rating"
+                    required
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+
+
+
+
+
+
+
+           
                   {/* Warrenty */}
                   <label className="font-bold text-xl" htmlFor="password">
                     Warrenty
@@ -291,10 +233,9 @@ const AddProduct = () => {
                     type="number"
                     name="warrenty"
                     required
-                    placeholder="Enter your product price"
+                    placeholder="Enter your product warrenty in years"
                     min={0}
-                    value={warrentyPeriod}
-                    onChange={handleSetWarrenty}
+
                   />
                   {/* Short Descriptions */}
                   <label className="font-bold text-xl" htmlFor="password">

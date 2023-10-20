@@ -65,12 +65,12 @@ const Navber = () => {
 
           <ul
             tabIndex={0}
-            className="navberMenu menu dropdown-content top-10 right-6 mt-2 z-[1] p-2 bg-blue-50 rounded-sm  w-32 text-center uppercase"
+            className="navberMenu menu dropdown-content top-10 right-6 mt-2 z-[1] p-2 bg-blue-50 rounded-sm  w-32 text-center uppercase space-y-3"
           >
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/Pages">Pages</NavLink>
-            <NavLink to="/Article">Article</NavLink>
             <NavLink to="/addproduct">Add Product</NavLink>
+            <NavLink to="/addbrand">Add Brand</NavLink>
+            <NavLink to="/addtype">Add Product Type</NavLink>
             <NavLink to="/mycart">My Cart</NavLink>
             <NavLink to="/Login">Login</NavLink>
           </ul>
