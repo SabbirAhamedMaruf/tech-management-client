@@ -56,11 +56,11 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/:brandname",
+        path: "/brand/:brandname",
         element: <Products></Products>,
       },
       {
-        path: "/:brandname/:productDetailId",
+        path: "/brand/:brandname/:productDetailId",
         element: (
           <PrivateRoutes>
             <ProductDetails></ProductDetails>
@@ -76,7 +76,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/update/:productDetailId",
+        path: "/brand/update/:productDetailId",
         loader: ({ params }) =>
           fetch(
             `http://localhost:5000/update/${params.productDetailId}`

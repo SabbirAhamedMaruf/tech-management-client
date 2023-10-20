@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import Navber from "../Components/Navber";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { PiEyeBold, PiEyeClosedBold } from "react-icons/pi";
@@ -9,7 +9,7 @@ const Register = () => {
   const [error, setError] = useState(null);
   const [viewPassword, setViewPassword] = useState(false);
   const { registerWithEmail } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   // Register with email
   const handleEmailRegister = (e) => {
     e.preventDefault();
@@ -40,6 +40,7 @@ const Register = () => {
             photoURL: `${photo}`,
           });
           form.reset();
+          navigate("/");
         })
         .catch((error) => {
           setError(error.message);
@@ -50,7 +51,7 @@ const Register = () => {
   return (
     <div>
       <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[95vh] lg:h-[100vh]">
-      <Navber></Navber>
+        <Navber></Navber>
         <h1 className="text-center font-bold text-4xl py-8 text-white">
           Welcome to Register
         </h1>
@@ -108,7 +109,7 @@ const Register = () => {
               />
             </form>
             {/* view password function */}
-            <div className="absolute top-[546px] right-[68px] md:top-[536px] md:right-[115px] lg:top-[592px] lg:right-[730px] text-xl md:text-2xl text-gray-500">
+            <div className="absolute top-[546px] right-[68px] md:top-[543px] md:right-[115px] lg:top-[564px] lg:right-[730px] text-xl md:text-2xl text-gray-500">
               <button onClick={() => setViewPassword(!viewPassword)}>
                 {viewPassword ? <PiEyeClosedBold /> : <PiEyeBold />}
               </button>
@@ -131,5 +132,3 @@ const Register = () => {
 };
 
 export default Register;
-
-

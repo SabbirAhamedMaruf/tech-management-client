@@ -6,7 +6,7 @@ const Products = () => {
   const { brandname } = useParams();
   const [currentBrandProducts, setCurrentBrandProducts] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/${brandname}`)
+    fetch(`http://localhost:5000/brand/${brandname}`)
       .then((res) => res.json())
       .then((data) => setCurrentBrandProducts(data));
   }, [brandname]);

@@ -32,27 +32,11 @@ const ProductUpdate = () => {
     });
   };
 
-  // Fetching brands from server
-  const [brandsData, setBrandsData] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/addproduct")
-      .then((res) => res.json())
-      .then((data) => setBrandsData(data));
-  }, []);
-
-  // Fetching Product type from server
-  const [productTypeData, setProductTypeData] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/addtype")
-      .then((res) => res.json())
-      .then((data) => setProductTypeData(data));
-  }, []);
-
   const { productDetailId } = useParams();
   const [currentProduct, setCurrentProduct] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/update/${productDetailId}`)
+    fetch(`http://localhost:5000/brand/update/${productDetailId}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -152,46 +136,40 @@ const ProductUpdate = () => {
                   <label className="font-bold text-xl" htmlFor="password">
                     Product Type
                   </label>
-                  <select
+                  <input
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    type="text"
                     name="type"
                     required
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
-                  >
-                    {productTypeData.map((i) => (
-                      <option key={i._id} value={i.name}>
-                        {i.name}
-                      </option>
-                    ))}
-                  </select>
+                    placeholder="Enter your product type"
+                    defaultValue={currentProduct[0]?.type}
+                  />
 
                   {/* Brand */}
                   <label className="font-bold text-xl" htmlFor="password">
                     Brand
                   </label>
-                  <select
+                  <input
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    type="text"
                     name="brand"
                     required
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
-                  >
-                    {brandsData.map((i) => (
-                      <option key={i._id} value={i.name}>
-                        {i.name}
-                      </option>
-                    ))}
-                  </select>
+                    placeholder="Enter your brand name"
+                    defaultValue={currentProduct[0]?.brand}
+                  />
 
                   {/* Is Featured */}
                   <label className="font-bold text-xl" htmlFor="password">
                     Is Featured?
                   </label>
-                  <select
+                  <input
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    type="text"
                     name="featured"
                     required
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
-                  >
-                    <option value="false">False</option>
-                    <option value="true">True</option>
-                  </select>
+                    placeholder="Enter true or false"
+                    defaultValue={currentProduct[0]?.featured}
+                  />
                 </div>
 
                 {/* Right side */}
@@ -214,17 +192,16 @@ const ProductUpdate = () => {
                   <label className="font-bold text-xl" htmlFor="password">
                     Rating
                   </label>
-                  <select
+                  <input
+                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    type="text"
                     name="rating"
                     required
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
+                    placeholder="Enter product rating between 0 to 5"
+                    defaultValue={currentProduct[0]?.rating}
+                    min={0}
+                    max={5}
+                  />
 
                   {/* Warrenty */}
                   <label className="font-bold text-xl" htmlFor="password">

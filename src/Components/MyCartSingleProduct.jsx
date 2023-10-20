@@ -10,10 +10,10 @@ console.log(dataId);
       </figure>
       <div className="card-body items-center text-center">
         <h2 className="card-title">{data.name}</h2>
-        <p>{data.brand}</p>
-        <p>{data.type}</p>
-        <p>{data.brand}</p>
-        <p>{data.rating}</p>
+        <p><span className="font-bold">Brand</span> {data.brand}</p>
+        <p><span className="font-bold">Product Type</span> {data.type}</p>
+        <p><span className="font-bold">Warrenty</span> {data.warrenty}</p>
+        <p><span className="font-bold">Rating</span> {data.rating}</p>
         <div className="card-actions">
           <Link onClick={()=>handleDeleteData(dataId)} className="btn btn-error text-white font-bold">
             Delete Product

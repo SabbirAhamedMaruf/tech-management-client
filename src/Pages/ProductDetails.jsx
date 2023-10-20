@@ -40,7 +40,7 @@ const ProductDetails = () => {
 
   // Fetching product detail from server
   useEffect(() => {
-    fetch(`http://localhost:5000/:brandname/${productDetailId}`)
+    fetch(`http://localhost:5000/brand/:brandname/${productDetailId}`)
       .then((res) => res.json())
       .then((data) => setCurrentProductDetails(data));
   }, [productDetailId]);
@@ -48,7 +48,7 @@ const ProductDetails = () => {
   // Handling add to cart function for userCartCollection
   const handleAddToCart = () => {
     const userProduct = { email: user.email, product : currentProductDetail };
-    fetch(`http://localhost:5000/:brandname/${productDetailId}`, {
+    fetch(`http://localhost:5000/brand/:brandname/${productDetailId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
