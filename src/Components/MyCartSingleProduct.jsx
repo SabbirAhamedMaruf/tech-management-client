@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 
-const MyCartSingleProduct = ({ data }) => {
+
+const MyCartSingleProduct = ({handleDeleteProduct,dataId,data }) => {
+   
   return (
     <div className="card w-96 bg-blue-50 shadow-2xl">
       <figure className="px-10 pt-10">
@@ -16,7 +18,7 @@ const MyCartSingleProduct = ({ data }) => {
         <p>{data.brand}</p>
         <p>{data.rating}</p>
         <div className="card-actions">
-          <button className="btn btn-error text-white font-bold">Delete Product</button>
+          <button onClick={()=>handleDeleteProduct(dataId)} className="btn btn-error text-white font-bold">Delete Product</button>
         </div>
       </div>
     </div>
@@ -25,6 +27,8 @@ const MyCartSingleProduct = ({ data }) => {
 
 MyCartSingleProduct.propTypes = {
   data: PropTypes.object,
+  dataId: PropTypes.string,
+  handleDeleteProduct : PropTypes.func
 };
 
 export default MyCartSingleProduct;

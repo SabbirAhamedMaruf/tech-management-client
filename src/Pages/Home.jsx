@@ -30,6 +30,31 @@ const Home = () => {
       <Banner></Banner>
       <div>
         {/* Upcoming Sales */}
+        <div className="mt-10 py-10 bg-gradient-to-r from-green-100 to-blue-100  rounded-t-3xl">
+          <Marquee speed={150} className="text-3xl uppercase">
+            <p className="mr-32 text-green-400">
+              Incoming our biggest event on asus laptop product
+            </p>
+            <p className="mr-32 text-blue-500">
+              {"Don't miss out on the biggest savings of the season!"}
+            </p>
+            <p className="mr-32 text-green-400">
+              {"Discover incredible discounts at our sales extravaganza."}
+            </p>
+            <p className="mr-32 text-blue-500">
+              {"One day, one chance, endless savings!"}
+            </p>
+            <p className="mr-32 text-green-400">
+              {"Shop smart, save big, and enjoy our sales event."}
+            </p>
+            <p className="mr-32 text-blue-500">
+              {"Get ready for a shopping spree like no other."}
+            </p>
+            <p className="mr-32 text-green-400">
+              {"The time to upgrade is now! Join our sales event."}
+            </p>
+          </Marquee>
+        </div>
         <div className="text-center font-bold mt-14 text-4xl m-auto w-[90%]">
           <h1>Propular Brands</h1>
           {/* Generating brands */}
@@ -66,3 +91,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
+// TODO Work on slider show and product advertisement and delete product and update product and dark mode
