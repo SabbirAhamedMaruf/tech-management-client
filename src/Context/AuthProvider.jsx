@@ -63,6 +63,7 @@ const AuthProvider = ({ children }) => {
   const authContextValues = {
     user,
     loading,
+    setLoading,
     registerWithEmail,
     loginWithEmail,
     loginWithGithub,

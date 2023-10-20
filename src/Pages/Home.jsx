@@ -30,7 +30,8 @@ const Home = () => {
       <Banner></Banner>
       <div>
         {/* Upcoming Sales */}
-        <div className="mt-10 py-10 bg-gradient-to-r from-green-100 to-blue-100  rounded-t-3xl">
+        <h1 className="mt-14 text-center font-bold text-4xl">Upcoming Sales</h1>
+        <div className="mt-10 py-10 rounded-t-3xl">
           <Marquee speed={150} className="text-3xl uppercase">
             <p className="mr-32 text-green-400">
               Incoming our biggest event on asus laptop product
@@ -91,6 +92,5 @@ const Home = () => {
 };
 
 export default Home;
-
 
 // TODO Work on slider show and product advertisement and delete product and update product and dark mode

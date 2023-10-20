@@ -1,0 +1,62 @@
+[
+  {
+    "photo": "https://i.ibb.co/LrWtf7F/apple-ad-1-new.jpg",
+    "brand": "Apple"
+  },
+  {
+    "photo": "https://i.ibb.co/swhvpJr/apple-ad-2-new.jpg",
+    "brand": "Apple"
+  },
+  {
+    "photo": "https://i.ibb.co/GFdVch9/apple-ad-3-new.jpg",
+    "brand": "Apple"
+  },
+  {
+    "photo": "https://i.ibb.co/0chKnpb/asus-ad1.jpg",
+    "brand": "Asus"
+  },
+  {
+    "photo": "https://i.ibb.co/SVmPd6w/asus-ad2.jpg",
+    "brand": "Asus"
+  },
+  {
+    "photo": "https://i.ibb.co/SmM2jr1/asus-ad3.jpg",
+    "brand": "Asus"
+  },
+  {
+    "photo": "https://i.ibb.co/YDtz2Pd/sony-ad-1.jpg",
+    "brand": "Sony"
+  },
+  {
+    "photo": "https://i.ibb.co/TkLKjYD/sony-ad-2.jpg",
+    "brand": "Sony"
+  },
+  {
+    "photo": "https://i.ibb.co/R9WyFrq/sony-ad-3.jpg",
+    "brand": "Sony"
+  },
+  {
+    "photo": "https://i.ibb.co/zfTPgR1/google-ad-1.jpg",
+    "brand": "Google"
+  },
+  {
+    "photo": "https://i.ibb.co/fvJ0wwS/google-ads-2.jpg",
+    "brand": "Google"
+  },
+  {
+    "photo": "https://i.ibb.co/W5DdZm0/google-ads-3.jpg",
+    "brand": "Google"
+  },
+  {
+    "photo": "https://i.ibb.co/Ws6ryMn/nvidia-ad1.jpg",
+    "brand": "Nvidia"
+  },
+  {
+    "photo": "https://i.ibb.co/3dpYY76/nvidia-ad2.jpg",
+    "brand": "Nvidia"
+  },
+  {
+    "photo": "https://i.ibb.co/JH47GRz/nvidia-ad3.jpg",
+    "brand": "Nvidia"
+  }
+]

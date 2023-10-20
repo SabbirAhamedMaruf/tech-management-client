@@ -57,6 +57,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/brand/:brandname",
+        loader:()=>fetch('/ads.json'),
         element: <Products></Products>,
       },
       {
