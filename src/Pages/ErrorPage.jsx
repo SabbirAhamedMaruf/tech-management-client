@@ -1,16 +1,11 @@
 import { Link, useRouteError } from "react-router-dom";
 import { TbHome2 } from "react-icons/tb";
-import Navber from "../Components/Navber";
 const ErrorPage = () => {
   const error = useRouteError();
-
+  console.log(error);
   return (
     <div className="bg-gradient-to-r from-amber-400 to-red-500">
-      <div className="shadow-2xl">
-          <Navber ></Navber>
-      </div>
       <div className="w-[90%] m-auto h-[100vh]">
-        
         <div className="w-[90%]  text-center absolute  rounded-3xl mt-32 h-[80vh] py-8">
           <h1 className="font-kalam font-bold text-3xl text-white md:text-4xl lg:text-6xl mt-8">
             Where should i go?
@@ -30,8 +25,8 @@ const ErrorPage = () => {
             )}
           </div>
           <Link>
-            <button className="flex justify-center m-auto w-24 lg:w-32 p-3 border-2 border-white rounded-xl bg-[#fedee1] hover:bg-green-300">
-               <TbHome2 className="inline text-3xl  text-gray-500" />
+            <button className="flex justify-center m-auto w-24 lg:w-32 p-3 rounded-xl bg-blue-500 hover:bg-green-300">
+              <TbHome2 className="inline text-3xl  text-white" />
             </button>
           </Link>
         </div>

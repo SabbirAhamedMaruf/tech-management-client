@@ -19,6 +19,10 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Site Dark mode
+  const [theme, setTheme] = useState(false);
+
+  
   // Registration functions
   const registerWithEmail = (email, password) => {
     setLoading(true);
@@ -63,6 +67,8 @@ const AuthProvider = ({ children }) => {
   const authContextValues = {
     user,
     loading,
+    theme,
+    setTheme,
     setLoading,
     registerWithEmail,
     loginWithEmail,

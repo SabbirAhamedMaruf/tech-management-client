@@ -1,12 +1,14 @@
 import {FaFacebookF,FaYoutube} from 'react-icons/fa';
 import {FiInstagram} from 'react-icons/fi';
 import{BiLogoTwitter} from 'react-icons/bi'
-
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 
 const Footer = () => {
+  const { theme } = useContext(AuthContext);
   return (
     <div>
-      <footer className="p-2 bg-black text-white text-center shadow-lg rounded-t-3xl mt-8">
+      <footer style={theme ? {backgroundColor : "#161828"} : {backgroundColor : "#000000"}} className="p-2 text-white text-center shadow-lg rounded-t-3xl mt-24">
         <div className="w-[85%] py-10 m-auto">
         <div className="flex justify-between mt-8">
           <nav className="flex flex-col space-y-5">

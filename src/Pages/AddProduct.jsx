@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 import Navber from "../Components/Navber";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Index.css";
 
 const AddProduct = () => {
+  const { theme } = useContext(AuthContext);
   // Toast Message
   const successInfo = () => {
     toast.success("Product added successfully!", {
@@ -34,7 +36,9 @@ const AddProduct = () => {
   // Fetching brands from server
   const [brandsData, setBrandsData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/addproduct")
+    fetch(
+      "https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/addproduct"
+    )
       .then((res) => res.json())
       .then((data) => setBrandsData(data));
   }, []);
@@ -42,7 +46,9 @@ const AddProduct = () => {
   // Fetching Product type from server
   const [productTypeData, setProductTypeData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/addtype")
+    fetch(
+      "https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/addtype"
+    )
       .then((res) => res.json())
       .then((data) => setProductTypeData(data));
   }, []);
@@ -59,7 +65,7 @@ const AddProduct = () => {
     const rating = form.rating.value;
     const warrenty = form.warrenty.value;
     const description = form.description.value;
-    
+
     const productData = {
       photo,
       name,
@@ -72,13 +78,16 @@ const AddProduct = () => {
       description,
     };
 
-    fetch("http://localhost:5000/addproduct", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    })
+    fetch(
+      "https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/addproduct",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -93,14 +102,34 @@ const AddProduct = () => {
   return (
     <div>
       <div>
-        <div className="bg-gradient-to-r from-green-400 to-blue-500 pb-20">
+        <div
+          style={
+            theme
+              ? {
+                  background: "linear-gradient(to right, #111827 ,#4b5563)",
+                  color: "white",
+                }
+              : {
+                  background: "linear-gradient(to right, #4ade80 ,#3b82f6)",
+                  color: "#4b5563",
+                }
+          }
+          className="pb-20"
+        >
           <Navber></Navber>
           <h1 className="text-center font-bold text-4xl py-8 text-white">
             Welcome to Product Management
           </h1>
 
-          <div className="w-[90%] p-4 lg:p-14 m-auto shadow-2xl rounded-lg bg-blue-50">
-            <div className="m-auto w-[80%] text-gray-600 pb-8">
+          <div
+            style={
+              theme
+                ? { backgroundColor: "#161828" }
+                : { backgroundColor: "#eff6ff" }
+            }
+            className="w-[90%] p-4 lg:p-14 m-auto shadow-2xl rounded-lg"
+          >
+            <div className="m-auto w-[80%] pb-8">
               <form
                 onSubmit={handleAddProduct}
                 className="grid lg:grid-cols-2 gap-8 pt-12"
@@ -112,7 +141,7 @@ const AddProduct = () => {
                     Product Image
                   </label>
                   <input
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                     type="text"
                     name="photo"
                     required
@@ -124,7 +153,7 @@ const AddProduct = () => {
                     Product Name
                   </label>
                   <input
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                     type="text"
                     name="name"
                     required
@@ -138,7 +167,7 @@ const AddProduct = () => {
                   <select
                     name="type"
                     required
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                   >
                     {productTypeData.map((i) => (
                       <option key={i._id} value={i.name}>
@@ -154,7 +183,7 @@ const AddProduct = () => {
                   <select
                     name="brand"
                     required
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                   >
                     {brandsData.map((i) => (
                       <option key={i._id} value={i.name}>
@@ -170,13 +199,11 @@ const AddProduct = () => {
                   <select
                     name="featured"
                     required
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                   >
                     <option value="false">False</option>
                     <option value="true">True</option>
                   </select>
-
-
                 </div>
 
                 {/* Right side */}
@@ -186,20 +213,13 @@ const AddProduct = () => {
                     Price
                   </label>
                   <input
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                     type="number"
                     name="price"
                     required
                     placeholder="Enter your product price"
                     min={0}
-
                   />
-
-
-
-
-
-
 
                   {/* Rating */}
                   <label className="font-bold text-xl" htmlFor="password">
@@ -208,7 +228,7 @@ const AddProduct = () => {
                   <select
                     name="rating"
                     required
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                   >
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -217,32 +237,24 @@ const AddProduct = () => {
                     <option value="5">5</option>
                   </select>
 
-
-
-
-
-
-
-           
                   {/* Warrenty */}
                   <label className="font-bold text-xl" htmlFor="password">
                     Warrenty
                   </label>
                   <input
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                     type="number"
                     name="warrenty"
                     required
                     placeholder="Enter your product warrenty in years"
                     min={0}
-
                   />
                   {/* Short Descriptions */}
                   <label className="font-bold text-xl" htmlFor="password">
                     Description
                   </label>
                   <textarea
-                    className="col-span-2 py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                    className="col-span-2 py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                     name="description"
                     cols="30"
                     rows="5"
@@ -251,7 +263,7 @@ const AddProduct = () => {
                 </div>
 
                 <input
-                  className="px-4 py-2 text-[18px] text-white rounded-3xl bg-gray-500"
+                  className="px-4 py-2 text-[18px] text-white rounded-3xl bg-gray-500 duration-300 hover:bg-green-400"
                   type="submit"
                   value="Add Product"
                 />

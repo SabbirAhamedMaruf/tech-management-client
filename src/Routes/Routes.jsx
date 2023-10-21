@@ -57,7 +57,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/brand/:brandname",
-        loader:()=>fetch('/ads.json'),
+        loader: () => fetch("/ads.json"),
         element: <Products></Products>,
       },
       {
@@ -80,9 +80,13 @@ const routes = createBrowserRouter([
         path: "/brand/update/:productDetailId",
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5000/update/${params.productDetailId}`
+            `https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/update/${params.productDetailId}`
           ),
-        element: <ProductUpdate></ProductUpdate>,
+        element: (
+          <PrivateRoutes>
+            <ProductUpdate></ProductUpdate>
+          </PrivateRoutes>
+        ),
       },
     ],
   },

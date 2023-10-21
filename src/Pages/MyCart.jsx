@@ -33,44 +33,55 @@ const MyCart = () => {
     });
   };
 
-
-  const { user } = useContext(AuthContext);
+  const { user, theme } = useContext(AuthContext);
   const [userCart, setUserCart] = useState([]);
 
-  const handleDeleteData =(productId)=>{
-    fetch(`http://localhost:5000/mycart/${productId}`,{
-        method: "DELETE"
-    })
-    .then((res) => res.json())
+  const handleDeleteData = (productId) => {
+    fetch(
+      `https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/mycart/${productId}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
         if (data.deletedCount > 0) {
           successInfo();
           const remainigProduct = userCart.filter((i) => i._id != productId);
           setUserCart(remainigProduct);
-        }
-        else{
+        } else {
           errorInfo();
         }
-    });
-  }
+      });
+  };
 
   useEffect(() => {
     const currentUser = { email: user.email };
-    fetch("http://localhost:5000/mycart", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(currentUser),
-    })
+    fetch(
+      "https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/mycart",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(currentUser),
+      }
+    )
       .then((res) => res.json())
       .then((data) => setUserCart(data));
   }, [user.email]);
 
   console.log(userCart);
   return (
-    <div>
+    <div
+      style={
+        theme
+          ? { backgroundColor: "#000000", color: "white" }
+          : { backgroundColor: "#eff6ff", color: "#4b5563" }
+      }
+      className="pb-[88vh]"
+    >
       <div className="shadow-xl">
         <Navber></Navber>
       </div>
@@ -86,7 +97,7 @@ const MyCart = () => {
           ))}
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };

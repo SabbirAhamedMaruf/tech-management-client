@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navber from "../Components/Navber";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Index.css";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 
 const ProductUpdate = () => {
+  const { theme } = useContext(AuthContext);
   // Toast Message
   const successInfo = () => {
     toast.success("Product updated successfully!", {
@@ -36,7 +38,9 @@ const ProductUpdate = () => {
   const [currentProduct, setCurrentProduct] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/brand/update/${productDetailId}`)
+    fetch(
+      `https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/brand/update/${productDetailId}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -71,13 +75,16 @@ const ProductUpdate = () => {
       description,
     };
 
-    fetch(`http://localhost:5000/addproduct/${productDetailId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    })
+    fetch(
+      `https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/addproduct/${productDetailId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -92,13 +99,33 @@ const ProductUpdate = () => {
   return (
     <div>
       <div>
-        <div className="bg-gradient-to-r from-green-400 to-blue-500 pb-20">
+        <div
+          style={
+            theme
+              ? {
+                  background: "linear-gradient(to right, #111827 ,#4b5563)",
+                  color: "white",
+                }
+              : {
+                  background: "linear-gradient(to right, #4ade80 ,#3b82f6)",
+                  color: "#4b5563",
+                }
+          }
+          className="pb-20"
+        >
           <Navber></Navber>
           <h1 className="text-center font-bold text-4xl py-8 text-white">
             Welcome to Product Management
           </h1>
 
-          <div className="w-[90%] p-4 lg:p-14 m-auto shadow-2xl rounded-lg bg-blue-50">
+          <div
+            style={
+              theme
+                ? { backgroundColor: "#161828" }
+                : { backgroundColor: "#eff6ff" }
+            }
+            className="w-[90%] p-4 lg:p-14 m-auto shadow-2xl rounded-lg"
+          >
             <div className="m-auto w-[80%] text-gray-600 pb-8">
               <form
                 onSubmit={handleUpdateProduct}
@@ -231,7 +258,7 @@ const ProductUpdate = () => {
                 </div>
 
                 <input
-                  className="px-4 py-2 text-[18px] text-white rounded-3xl bg-gray-500"
+                  className="px-4 py-2 text-[18px] text-white rounded-3xl bg-gray-500   duration-300 hover:bg-green-400"
                   type="submit"
                   value="Update Product"
                 />

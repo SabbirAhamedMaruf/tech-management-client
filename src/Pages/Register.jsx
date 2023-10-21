@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 import Navber from "../Components/Navber";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthProvider";
-import { updateProfile } from "firebase/auth";
+import { signOut, updateProfile } from "firebase/auth";
 import { PiEyeBold, PiEyeClosedBold } from "react-icons/pi";
+import auth from "../Firebase/Firebase.config";
 
 const Register = () => {
+  const { theme } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [viewPassword, setViewPassword] = useState(false);
   const { registerWithEmail } = useContext(AuthContext);
@@ -40,7 +42,8 @@ const Register = () => {
             photoURL: `${photo}`,
           });
           form.reset();
-          navigate("/");
+          signOut(auth);
+          navigate("/Login");
         })
         .catch((error) => {
           setError(error.message);
@@ -50,13 +53,33 @@ const Register = () => {
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[95vh] lg:h-[100vh]">
+      <div
+        style={
+          theme
+            ? {
+                background: "linear-gradient(to right, #111827 ,#4b5563)",
+                color: "white",
+              }
+            : {
+                background: "linear-gradient(to right, #4ade80 ,#3b82f6)",
+                color: "#4b5563",
+              }
+        }
+        className="h-[95vh] lg:h-[100vh]"
+      >
         <Navber></Navber>
         <h1 className="text-center font-bold text-4xl py-8 text-white">
           Welcome to Register
         </h1>
-        <div className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg bg-blue-50">
-          <div className="m-auto w-[80%] text-gray-600 mb-20">
+        <div
+          style={
+            theme
+              ? { backgroundColor: "#161828" }
+              : { backgroundColor: "#eff6ff" }
+          }
+          className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg"
+        >
+          <div className="m-auto w-[80%] mb-20">
             <form
               onSubmit={handleEmailRegister}
               className="grid grid-cols-1 space-y-2 "
@@ -65,7 +88,7 @@ const Register = () => {
                 Name
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                 type="text"
                 name="name"
                 required
@@ -75,7 +98,7 @@ const Register = () => {
                 Photo
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                 type="text"
                 name="photo"
                 required
@@ -85,7 +108,7 @@ const Register = () => {
                 Email
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                 type="email"
                 name="email"
                 required
@@ -95,7 +118,7 @@ const Register = () => {
                 Password
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                 type={viewPassword ? "text" : "password"}
                 name="password"
                 required

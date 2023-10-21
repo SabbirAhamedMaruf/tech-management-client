@@ -1,8 +1,11 @@
-# React + Vite
+# Website Releatd to Technology and Electronics
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<span>Website Link : <a href="https://6533ece1e7d324382e5465a1--spectacular-beignet-845ef7.netlify.app/">Click Here</a></span>
 
-Currently, two official plugins are available:
+## Features of this project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Backend intregration. (Mongodb)
+- Firebase intregration for authentication systemm
+- User cart section based each user functionality.
+- Product addition functionality
+- Product update functionality

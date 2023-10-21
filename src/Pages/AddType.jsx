@@ -2,8 +2,11 @@ import Navber from "../Components/Navber";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Index.css";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 
 const AddType = () => {
+  const { theme } = useContext(AuthContext);
   // Toast Message
   const successInfo = () => {
     toast.success("Product type added successfully!", {
@@ -34,15 +37,18 @@ const AddType = () => {
     e.preventDefault();
     const form = e.target;
     const name = form.productName.value;
-    const productType = {name};
+    const productType = { name };
     console.log(JSON.stringify(productType));
-    fetch("http://localhost:5000/addtype", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productType),
-    })
+    fetch(
+      "https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/addtype",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productType),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -55,13 +61,33 @@ const AddType = () => {
   };
   return (
     <div>
-      <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[95vh] lg:h-[100vh]">
+      <div
+        style={
+          theme
+            ? {
+                background: "linear-gradient(to right, #111827 ,#4b5563)",
+                color: "white",
+              }
+            : {
+                background: "linear-gradient(to right, #4ade80 ,#3b82f6)",
+                color: "#4b5563",
+              }
+        }
+        className="h-[95vh] lg:h-[100vh]"
+      >
         <Navber></Navber>
         <h1 className="text-center font-bold text-4xl py-8 text-white">
           Add Your Product Type
         </h1>
-        <div className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg bg-blue-50">
-          <div className="m-auto w-[80%] text-gray-600 mb-20">
+        <div
+          style={
+            theme
+              ? { backgroundColor: "#161828" }
+              : { backgroundColor: "#eff6ff" }
+          }
+          className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg"
+        >
+          <div className="m-auto w-[80%] mb-20">
             <form
               onSubmit={handleAddBrand}
               className="grid grid-cols-1 space-y-8"
@@ -70,7 +96,7 @@ const AddType = () => {
                 Product Type
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                 type="text"
                 name="productName"
                 required

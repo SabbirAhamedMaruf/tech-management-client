@@ -1,9 +1,18 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 
 const SingleProduct = ({ data }) => {
+  const { theme } = useContext(AuthContext);
   return (
-    <div key={data._id} className="m-auto card lg:w-96  bg-blue-50 shadow-2xl">
+    <div
+      style={
+        theme ? { backgroundColor: "#161828" } : { backgroundColor: "#eff6ff" }
+      }
+      key={data._id}
+      className="m-auto card lg:w-96 h-[600px] shadow-2xl"
+    >
       <figure className="px-10 pt-10">
         <img src={data.photo} className="rounded-xl bg-white" />
       </figure>

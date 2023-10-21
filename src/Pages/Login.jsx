@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 import Navber from "../Components/Navber";
 import { FiGithub } from "react-icons/fi";
 import { IoLogoGoogle } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthProvider";
 import { PiEyeBold, PiEyeClosedBold } from "react-icons/pi";
 
 const Login = () => {
+  const { theme } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [viewPassword, setViewPassword] = useState(false);
@@ -55,32 +56,52 @@ const Login = () => {
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[95vh] lg:h-[100vh]">
-      <Navber></Navber>
-        <h1 className="text-center font-bold text-4xl py-8 text-white">
+      <div
+        style={
+          theme
+            ? {
+                background: "linear-gradient(to right, #111827 ,#4b5563)",
+                color: "white",
+              }
+            : {
+                background: "linear-gradient(to right, #4ade80 ,#3b82f6)",
+                color: "#4b5563",
+              }
+        }
+        className="lg:h-[100vh]"
+      >
+        <Navber></Navber>
+        <h1 className="py-8 text-4xl font-bold text-center text-white">
           Welcome to Login
         </h1>
-        <div className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg bg-blue-50">
-          <div className="m-auto w-[80%] text-gray-600">
+        <div
+          style={
+            theme
+              ? { backgroundColor: "#161828" }
+              : { backgroundColor: "#eff6ff" }
+          }
+          className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg"
+        >
+          <div className="m-auto w-[80%]">
             <form
               onSubmit={handleLoginWithEmail}
               className="grid grid-cols-1 space-y-2 "
             >
-              <label className="font-bold text-xl mt-32" htmlFor="email">
+              <label className="mt-32 text-xl font-bold" htmlFor="email">
                 Email
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="px-4 py-2 font-semibold text-black bg-gray-200 rounded-md outline-none"
                 type="email"
                 name="email"
                 required
                 placeholder="Enter your email"
               />
-              <label className="font-bold text-xl" htmlFor="password">
+              <label className="text-xl font-bold" htmlFor="password">
                 Password
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="px-4 py-2 font-semibold text-black bg-gray-200 rounded-md outline-none"
                 type={viewPassword ? "text" : "password"}
                 name="password"
                 required
@@ -132,4 +153,3 @@ const Login = () => {
 };
 
 export default Login;
-

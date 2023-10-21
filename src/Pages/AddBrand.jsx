@@ -1,9 +1,12 @@
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 import Navber from "../Components/Navber";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Index.css";
 
 const AddBrand = () => {
+  const { theme } = useContext(AuthContext);
   // Toast Message
   const successInfo = () => {
     toast.success("Brand added successfully!", {
@@ -37,13 +40,16 @@ const AddBrand = () => {
     const logo = form.brandlogo.value;
     const currentBrand = { name, logo };
 
-    fetch("http://localhost:5000/addbrand", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(currentBrand),
-    })
+    fetch(
+      "https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/addbrand",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(currentBrand),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -57,14 +63,33 @@ const AddBrand = () => {
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-green-400 to-blue-500 h-[100vh]">
+      <div
+        style={
+          theme
+            ? {
+                background: "linear-gradient(to right, #111827 ,#4b5563)",
+                color: "white",
+              }
+            : {
+                background: "linear-gradient(to right, #4ade80 ,#3b82f6)",
+                color: "#4b5563",
+              }
+        }
+        className="h-[100vh]"
+      >
         <Navber></Navber>
         <h1 className="text-center font-bold text-4xl py-8 text-white">
           Add Your Brand
         </h1>
-        <div className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg bg-blue-50">
-          <div className="m-auto w-[80%] text-gray-600 mb-20">
-            
+        <div
+          style={
+            theme
+              ? { backgroundColor: "#161828", color: "white" }
+              : { backgroundColor: "#eff6ff", color: "#6b7280" }
+          }
+          className="w-[90%] lg:w-[600px] h-[620px] m-auto shadow-2xl rounded-lg"
+        >
+          <div className="m-auto w-[80%]  mb-20">
             <form
               onSubmit={handleAddBrand}
               className="grid grid-cols-1 space-y-8"
@@ -73,7 +98,7 @@ const AddBrand = () => {
                 Brand Name
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                 type="text"
                 name="brandname"
                 required
@@ -83,14 +108,14 @@ const AddBrand = () => {
                 Brand Logo
               </label>
               <input
-                className="py-2 px-4 bg-gray-200 rounded-md font-semibold outline-none"
+                className="py-2 px-4 text-black bg-gray-200 rounded-md font-semibold outline-none"
                 type="text"
                 name="brandlogo"
                 required
                 placeholder="Enter your photo url"
               />
               <input
-                className="px-4 py-2 text-[18px] text-white rounded-3xl bg-gray-500 duration-300 hover:bg-green-400"
+                className="px-4 py-2 text-[18px] rounded-3xl bg-gray-500 duration-300 hover:bg-green-400"
                 type="submit"
                 value="Submit"
               />
@@ -104,6 +129,5 @@ const AddBrand = () => {
 };
 
 export default AddBrand;
-
 
 //TODO add height using padding and fix responsive

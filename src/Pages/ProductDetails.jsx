@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Index.css";
 
 const ProductDetails = () => {
+  const { theme } = useContext(AuthContext);
   // Toast Message
   const successInfo = () => {
     toast.success("Product added successfully!", {
@@ -40,21 +41,26 @@ const ProductDetails = () => {
 
   // Fetching product detail from server
   useEffect(() => {
-    fetch(`http://localhost:5000/brand/:brandname/${productDetailId}`)
+    fetch(
+      `https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/brand/:brandname/${productDetailId}`
+    )
       .then((res) => res.json())
       .then((data) => setCurrentProductDetails(data));
   }, [productDetailId]);
 
   // Handling add to cart function for userCartCollection
   const handleAddToCart = () => {
-    const userProduct = { email: user.email, product : currentProductDetail };
-    fetch(`http://localhost:5000/brand/:brandname/${productDetailId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userProduct),
-    })
+    const userProduct = { email: user.email, product: currentProductDetail };
+    fetch(
+      `https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/brand/:brandname/${productDetailId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userProduct),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -66,12 +72,24 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="mb-20">
+    <div
+      style={
+        theme ? { backgroundColor: "#000000",color:"white" } : { backgroundColor: "#eff6ff",color:"#6b7280" }
+      }
+      className="pb-20"
+    >
       <div className="shadow-xl">
         <Navber></Navber>
       </div>
-      <div className="mt-8 w-[90%] m-auto">
-        <div className="bg-blue-50 rounded-3xl shadow-2xl p-10">
+      <div
+        style={
+          theme
+            ? { backgroundColor: "#161828" }
+            : { backgroundColor: "#eff6ff" }
+        }
+        className="mt-8 w-[90%] m-auto"
+      >
+        <div className="rounded-3xl shadow-2xl p-10">
           <div className=" flex flex-col lg:flex-row justify-around items-center">
             <figure className="pt-10">
               <img
@@ -79,31 +97,31 @@ const ProductDetails = () => {
                 src={photo}
               />
             </figure>
-            <div className="font-semibold text-2xl text-gray-500 lg:mr-32 space-y-8">
+            <div className="font-semibold text-2xl lg:mr-32 space-y-8">
               <p>
-                <span className="font-bold text-black mr-12">Name</span>
+                <span className="font-bold mr-12">Name</span>
                 <span>{name}</span>
               </p>
               <p>
-                <span className="font-bold text-black mr-12">Brand</span>
+                <span className="font-bold mr-12">Brand</span>
                 <span>{brand}</span>
               </p>
               <p>
-                <span className="font-bold text-black mr-[58px]">Price</span>
+                <span className="font-bold mr-[58px]">Price</span>
                 <span>{price} Taka</span>
               </p>
               <p>
-                <span className="font-bold text-black mr-10">Rating</span>
+                <span className="font-bold mr-10">Rating</span>
                 <span>{rating}/5</span>
               </p>
               <p>
-                <span className="font-bold text-black mr-3">Warrenty</span>
+                <span className="font-bold mr-3">Warrenty</span>
                 <span>{warrenty}</span>
               </p>
 
               <div>
                 <Link
-                  onClick={()=>handleAddToCart()}
+                  onClick={() => handleAddToCart()}
                   className="px-8 py-2 bg-gray-500 rounded-3xl duration-300 hover:bg-blue-500 text-white"
                 >
                   Add To Cart
@@ -126,4 +144,4 @@ const ProductDetails = () => {
 
 export default ProductDetails;
 
-// TODO work on rating star 
+// TODO work on rating star

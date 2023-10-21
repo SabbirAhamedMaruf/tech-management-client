@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Banner from "../Components/Banner";
 import Footer from "../Components/Footer";
 import Navber from "../Components/Navber";
@@ -6,26 +6,37 @@ import SingleBrand from "../Components/SingleBrand";
 import SingleFeaturedProduct from "../Components/SingleFeaturedProduct";
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
+import { AuthContext } from "../Context/AuthProvider";
 
 const Home = () => {
   const [homeScrrenBrands, setHomeScreenBrands] = useState([]);
   const [featuedProduct, setFeaturedProduct] = useState([]);
-
+  const { theme } = useContext(AuthContext);
   // Fetching brands from server
   useEffect(() => {
-    fetch("http://localhost:5000/brands")
+    fetch(
+      "https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/brands"
+    )
       .then((res) => res.json())
       .then((data) => setHomeScreenBrands(data));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/featured")
+    fetch(
+      "https://server-7ih8iop1k-sabbir-ahamed-marufs-projects.vercel.app/featured"
+    )
       .then((res) => res.json())
       .then((data) => setFeaturedProduct(data));
   }, []);
 
   return (
-    <div>
+    <div
+      style={
+        theme
+          ? { backgroundColor: "#000000", color: "white" }
+          : { backgroundColor: "#eff6ff", color: "#4b5563" }
+      }
+    >
       <Navber></Navber>
       <Banner></Banner>
       <div>
@@ -92,5 +103,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// TODO Work on slider show and product advertisement and delete product and update product and dark mode
