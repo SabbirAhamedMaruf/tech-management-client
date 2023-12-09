@@ -4,6 +4,13 @@
 
 <span>Server Repo Link : <a href="https://github.com/SabbirAhamedMaruf/tech-management-server">Click Here</a></span>
 
+## Technology used in this project
+
+- React
+- React Router
+- Firebase
+- Tailwind CSS
+
 ## Features of this project
 
 - Backend intregration. (Mongodb)
